@@ -1,13 +1,14 @@
 {
-  "name": "test-hybrid",
+  "name": "dependatea-hybrid",
   "version": "1.0.0",
   "scripts": {
     "start": "node lib/bridge.js analyze",
     "test": "npm run test:py && npm run test:js",
     "test:py": "cd test/py && python -m unittest discover",
-    "test:js": "mocha test/test_node.js"
+    "test:js": "mocha test/js/test_node.js"
   },
   "dependencies": {
-    "axios": "^1.6.2"
+    "axios": "^1.6.2",
+    "mocha": "^10.2.0"
   }
 }
