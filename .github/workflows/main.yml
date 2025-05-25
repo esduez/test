@@ -1,4 +1,4 @@
-name: Hybrid CI
+name: Hybrid Test
 on: [push]
 
 jobs:
@@ -14,4 +14,4 @@ jobs:
         with: { node-version: "20" }
       - run: pip install -r requirements.txt
       - run: npm install
-      - run: npm test
+      - run: cd test/py && python -m unittest discover
