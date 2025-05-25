@@ -1,16 +1,15 @@
-import unittest
+import pytest
 import sys
 import os
-
-# Kritik yol ayarı
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from py.analyzer import analyze_package
 
-class TestAnalyzer(unittest.TestCase):
-    def test_analysis(self):
-        result = analyze_package("flask")
-        self.assertIsInstance(result, dict)
-        self.assertIn("dependencies", result)
-        
-if __name__ == '__main__':
-    unittest.main()
+def test_package_analysis():
+    result = analyze_package("flask")
+    assert isinstance(result, dict)
+    assert "dependencies" in result
+    assert isinstance(result["dependencies"], list)
+
+def test_invalid_package():
+    with pytest.raises(Exception):
+        analyze_package("invalid_package_123")
