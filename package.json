@@ -1,5 +1,5 @@
 {
-  "name": "dependatea-hybrid",
+  "name": "test-hybrid",
   "version": "1.0.0",
   "scripts": {
     "start": "node lib/bridge.js analyze",
