@@ -1,17 +1,23 @@
 {
   "name": "test-hybrid",
   "version": "1.0.0",
- "scripts": {
-  "start": "node lib/bridge.js analyze flask",
-  "test": "npm run test:py && npm run test:js",
-  "test:py": "cd test/py && python -m unittest discover -v",
-  "test:js": "mocha test/js/test_node.js",
-  "coverage": "npm run test:py -- --cov && npm run test:js -- --coverage"
-},
-"dependencies": {
-  "axios": "^1.6.2",
-  "mocha": "^10.2.0"
-},
-"devDependencies": {
-  "chai": "^4.3.8"
+  "scripts": {
+    "start": "node lib/bridge.js analyze flask",
+    "test": "npm run test:py && npm run test:js",
+    "test:py": "cd test/py && python -m pytest --cov=../../py --cov-report=xml",
+    "test:js": "nyc mocha test/js/test_node.js",
+    "coverage": "nyc --reporter=html npm test"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "mocha": "^10.2.0"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0",
+    "chai": "^4.3.8"
+  },
+  "nyc": {
+    "include": ["lib/*.js"],
+    "reporter": ["lcov", "text"]
+  }
 }
