@@ -1,14 +1,11 @@
-import sys
 import json
-from analyzer import analyze_package
+import sys
+from analyzer import analyze
 
 def main():
-    command = sys.argv[1]
-    
-    if command == "analyze":
-        pkg = sys.argv[2]
-        result = analyze_package(pkg)
+    if len(sys.argv) > 1:
+        result = analyze(sys.argv[1])
         print(json.dumps(result))
-        
+
 if __name__ == "__main__":
     main()
