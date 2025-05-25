@@ -1,0 +1,9 @@
+[project]
+name = "dependatea"
+version = "0.1.0"
+dependencies = ["requests", "matplotlib", "networkx"]
+
+[tool.tea]
+hybrid = true
+primary_language = "python"
+node_compat = true  # npm komutlarını Python'a yönlendirir
