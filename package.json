@@ -1,16 +1,17 @@
 {
-  "name": "dependatea",
-  "version": "0.1.0",
-  "description": "tea.xyz-integrated dependency analyzer (Python + Node hybrid)",
+  "name": "dependatea-hybrid",
+  "version": "1.0.0",
   "scripts": {
-    "analyze": "python src/cli.py analyze",
-    "rewards": "python src/cli.py rewards"
+    "start": "node lib/bridge.js",
+    "test": "npm run test:py && npm run test:js",
+    "test:py": "cd test && python -m unittest discover",
+    "test:js": "mocha test/test_node.js"
   },
   "dependencies": {
-    "axios": "^1.6.2" 
+    "axios": "^1.6.2",
+    "child_process": "^1.0.2"
   },
-  "tea": {
-    "language": "hybrid",
-    "primaryLanguage": "python"
+  "devDependencies": {
+    "mocha": "^10.2.0"
   }
 }
