@@ -1,0 +1,9 @@
+name: Test
+on: [push]  # Her push'ta çalışsın
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merhaba Dünya! 🌍
+        run: echo "Bu GitHub Actions'ın ilk testi!"
