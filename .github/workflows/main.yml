@@ -1,9 +1,18 @@
 name: Test
-on: [push]  # Her push'ta çalışsın
+on: [push]
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Merhaba Dünya! 🌍
-        run: echo "Bu GitHub Actions'ın ilk testi!"
+      - uses: actions/checkout@v4
+      - name: Python Kurulumu 🐍
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Bağımlılıkları Yükle 📦
+        run: |
+          pip install -r requirements.txt
+          npm install
+      - name: Testleri Çalıştır 🧪
+        run: npm test  # (Testlerini eklediğinde burayı aktifleştir)
