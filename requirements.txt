@@ -1,2 +1,4 @@
 requests==2.31.0
 pytest==7.4.0
+networkx==3.1  # Bağımlılık analizi için
+python-dotenv==1.0.0  # Çevre değişkenleri için
