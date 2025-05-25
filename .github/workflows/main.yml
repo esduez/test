@@ -1,18 +1,26 @@
-name: Test
-on: [push]
+name: CI/CD Pipeline
+on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Python Kurulumu 🐍
+      - name: Setup Python
         uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-      - name: Bağımlılıkları Yükle 📦
-        run: |
-          pip install -r requirements.txt
-          npm install
-      - name: Testleri Çalıştır 🧪
-        run: npm test  # (Testlerini eklediğinde burayı aktifleştir)
+        with: { python-version: "3.10" }
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with: { node-version: "20" }
+      - run: pip install -r requirements.txt
+      - run: npm install
+      - run: python -m unittest discover test/
+      - run: npm test
+
+  docker-publish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t dependatea .
