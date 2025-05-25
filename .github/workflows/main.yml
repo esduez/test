@@ -8,12 +8,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Set up Python 3.10
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
     
-    - name: Set up Node.js 20.x
+    - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
         node-version: "20.x"
@@ -21,18 +21,21 @@ jobs:
     
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        pip install -e .
+        pip install pytest pytest-cov
         npm ci
         
     - name: Run Python tests
       env:
         PYTHONPATH: ${{ github.workspace }}
-      working-directory: ./test/py
       run: |
+        cd test/py
         python -m pytest --cov=../../py --cov-report=xml -v
     
     - name: Run Node.js tests
-      run: nyc mocha test/js/test_node.js --timeout 10000
+      run: |
+        cd test/js
+        ../../node_modules/.bin/mocha test_node.js --timeout 10000
     
     - name: Upload coverage
       uses: codecov/codecov-action@v3
