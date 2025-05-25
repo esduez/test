@@ -1,9 +1,11 @@
 const assert = require('assert');
-const { runPython } = require('../../lib/bridge');
+const { analyzePackage } = require('../../lib/bridge');
 
-describe('Python Bridge', () => {
-  it('should return package info', async () => {
-    const result = await runPython('analyze', ['flask']);
-    assert.ok(result.dependencies);
-  });
+describe('Python Bridge', function() {
+    this.timeout(10000);
+
+    it('should return package info', async () => {
+        const result = await analyzePackage('flask');
+        assert.ok(Array.isArray(result.dependencies));
+    });
 });
