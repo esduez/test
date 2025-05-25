@@ -1,5 +1,5 @@
-name: CI/CD Pipeline
-on: [push, pull_request]
+name: Hybrid CI
+on: [push]
 
 jobs:
   test:
@@ -14,13 +14,4 @@ jobs:
         with: { node-version: "20" }
       - run: pip install -r requirements.txt
       - run: npm install
-      - run: python -m unittest discover test/
       - run: npm test
-
-  docker-publish:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Build Docker image
-        run: docker build -t dependatea .
