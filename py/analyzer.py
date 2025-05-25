@@ -1,23 +1,18 @@
+import pytest
+import sys
+import os
 
-import requests
-from typing import Dict, List
+# Kritik yol ayarı (3 seviye yukarı çık)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
 
-def analyze_package(package_name: str) -> Dict:
-    """Paket bağımlılıklarını analiz eder"""
-    dummy_data = {
-        "flask": ["werkzeug", "jinja2", "itsdangerous"],
-        "numpy": []
-    }
-    
-    return {
-        "name": package_name,
-        "dependencies": dummy_data.get(package_name, []),
-        "tea_rewards": len(package_name) * 0.5
-    }
+from py.analyzer import analyze_package
 
-def get_tea_rewards(user_id: str) -> Dict:
-    """Kullanıcının TEA ödüllerini getirir"""
-    return {
-        "user_id": user_id,
-        "rewards": 42.0,
-        "currency": "TEA"
+def test_package_analysis():
+    result = analyze_package("flask")
+    assert isinstance(result, dict)
+    assert "dependencies" in result
+    assert isinstance(result["dependencies"], list)
+
+def test_invalid_package():
+    with pytest.raises(Exception):
+        analyze_package("invalid_package_123")
